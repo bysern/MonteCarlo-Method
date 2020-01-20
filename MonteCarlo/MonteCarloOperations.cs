@@ -9,7 +9,7 @@ namespace MonteCarlo
     class MonteCarloOperations
     {
         public List<InputTask> Tasks = new List<InputTask>();
-
+        public int AverageEstimation { get; private set; }
 
         public void AddTask(InputTask task)
         {
@@ -30,8 +30,6 @@ namespace MonteCarlo
             return TimeCases;
         }
 
-
-
         public static int[] GenerateRandomArray(int min, int max)
         {
             int[] randomArray = new int[10000];
@@ -44,23 +42,30 @@ namespace MonteCarlo
             return randomArray;
         }
 
-        public int Simulate()
+        //Monte carlo algorithm, more iterations more accurate estimation with costs of performance
+        public Bucketing Simulate()
         {
             int totalCostOfRandomPlans = 0;
             int iterations = 10000;
             int[] Estimation = CalculateEstimated();
             int min = Estimation[0], max = Estimation[2];
+            int HowManyBuckets = max - min;
+            Bucketing bucket = new Bucketing(10, min, max);
+
             var randomEstimations = GenerateRandomArray(min, max);
             for (int i = 0; i < iterations; i++)
             {
                 int randomPlanCost = 0;
-                //foreach (var item in Tasks)
-                //{
-                    randomPlanCost += randomEstimations[i];
-                //}
-                totalCostOfRandomPlans += randomPlanCost;
+
+                randomPlanCost += randomEstimations[i];
+            
+                bucket.addValueToBucket(randomPlanCost);
+
+               totalCostOfRandomPlans += randomPlanCost;
             }
-            return totalCostOfRandomPlans / (iterations);
+            this.AverageEstimation = totalCostOfRandomPlans / (iterations);
+
+            return bucket;
         }
     }
 }

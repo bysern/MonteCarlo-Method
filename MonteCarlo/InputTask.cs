@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonteCarlo
 {
@@ -15,9 +13,6 @@ namespace MonteCarlo
         
         public InputTask(string Input)
         {
-            //this.BestTestCase;
-            //this.AvgTestCase = newAverageTestCase;
-            //this.WorstTestCase = newWorstTestCase;
             setArray(Input);
         }
 

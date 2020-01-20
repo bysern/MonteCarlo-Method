@@ -8,11 +8,9 @@ namespace MonteCarlo
     class ProjectTests
     {
         [Test]
-        public void Test1()
+        public void TestBucket()
         {
-            //InputTask menu = new InputTask();
-            //string Input = "10,20,30";
-            //Assert.That(menu.setArray(Input), Is.EqualTo("10", "20", "30"))); 
+            Bucketing bucket = new Bucketing(10, 40, 160);
             MonteCarloOperations operations = new MonteCarloOperations();
             //Assert.That(operations.Simulate)
 
