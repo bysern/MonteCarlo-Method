@@ -10,8 +10,10 @@ namespace MonteCarlo
         [Test]
         public void TestBucket()
         {
-            Bucketing bucket = new Bucketing(10, 40, 160);
             MonteCarloOperations operations = new MonteCarloOperations();
+            int[] Estimation = operations.CalculateEstimated();
+            int min = Estimation[0], max = Estimation[2];
+            var bucket = new Bucketing(10, 40, 160);
             //Assert.That(operations.Simulate)
 
         }

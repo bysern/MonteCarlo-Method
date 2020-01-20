@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonteCarlo
 {
     class Bucketing
     {
         public Dictionary<int, int> buckets = new Dictionary<int, int>();
-        public int bucketCount { get; set; }
-        public int rangeLow { get; set; }
-        public int rangeHigh { get; set; }
-        public int StepSize { get; set; }
+        public int bucketCount { get; private set; }
+        public int rangeLow { get; private set; }
+        public int rangeHigh { get; private set; }
+        public int StepSize { get; private set; }
 
         public Bucketing(int newBucketCount, int newRangeLow, int newRangeHigh)
         {
@@ -60,6 +58,14 @@ namespace MonteCarlo
             }
 
             return result;
+        }
+
+        public void AccumulatedProbabilites()
+        {
+            for (int i = 1; i < buckets.Count; i++)
+            {
+                buckets[buckets.ElementAt(i).Key] = buckets.ElementAt(i - 1).Value + buckets.ElementAt(i).Value;
+            }
         }
 
     }

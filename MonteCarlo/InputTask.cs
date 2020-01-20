@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace MonteCarlo
@@ -16,7 +15,7 @@ namespace MonteCarlo
             setArray(Input);
         }
 
-
+        //taking string input of user and parsing it to int array
         public void setArray(string Input)
         {
             Input = Input.Trim();
@@ -29,7 +28,6 @@ namespace MonteCarlo
             for (int i = 0; i < Estimations.Length; i++)
             {
                if (!int.TryParse(Estimations[i], out Tasks[i])) Console.WriteLine("Wrong input");
-
             }
             this.BestTestCase = Tasks.Min();
             this.AvgTestCase = (int)Tasks.Average();

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace MonteCarlo
 {
@@ -33,7 +32,9 @@ namespace MonteCarlo
                 Console.WriteLine($"Average = {operations.AverageEstimation} days");
                 Console.WriteLine($"Maximum = {maximum} days");
 
-                Console.WriteLine("Probability in finishing the plan in: \n" + bucket);
+                Console.WriteLine("Probability of finishing the plan in: \n" + bucket);
+                bucket.AccumulatedProbabilites();
+                Console.WriteLine("Accumulate probability of finishing the plan in or before: " + bucket);
 
                 Console.ReadKey();
             }

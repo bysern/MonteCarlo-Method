@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonteCarlo
 {
@@ -26,6 +23,8 @@ namespace MonteCarlo
                 avg += task.AvgTestCase;
                 max += task.WorstTestCase;
             }
+            if (max < min) throw new InvalidOperationException("Worst case scenerio must be longer than best");
+
             int[] TimeCases = new int[] { min, avg, max };
             return TimeCases;
         }
@@ -49,7 +48,7 @@ namespace MonteCarlo
             int iterations = 10000;
             int[] Estimation = CalculateEstimated();
             int min = Estimation[0], max = Estimation[2];
-            int HowManyBuckets = max - min;
+            //int HowManyBuckets = max - min;
             Bucketing bucket = new Bucketing(10, min, max);
 
             var randomEstimations = GenerateRandomArray(min, max);
