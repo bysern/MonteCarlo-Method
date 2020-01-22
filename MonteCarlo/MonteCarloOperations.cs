@@ -7,6 +7,7 @@ namespace MonteCarlo
     {
         public List<InputTask> Tasks = new List<InputTask>();
         public int AverageEstimation { get; private set; }
+        Random randNum = new Random();
 
         public void AddTask(InputTask task)
         {
@@ -29,16 +30,20 @@ namespace MonteCarlo
             return TimeCases;
         }
 
-        public static int[] GenerateRandomArray(int min, int max)
-        {
-            int[] randomArray = new int[10000];
-
-            Random randNum = new Random();
-            for (int i = 0; i < randomArray.Length; i++)
+        public int GenerateRandomEstimate() {
+            int sum = 0;
+            
+            foreach (InputTask task in Tasks)
             {
-                randomArray[i] = randNum.Next(min, max);
+                int whichCase = randNum.Next(3);
+                if (whichCase == 0)
+                    sum += task.BestTestCase;
+                if (whichCase == 1)
+                    sum += task.AvgTestCase;
+                if (whichCase == 2)
+                    sum += task.WorstTestCase;
             }
-            return randomArray;
+            return sum;
         }
 
         //Monte carlo algorithm, more iterations more accurate estimation with costs of performance
@@ -51,12 +56,10 @@ namespace MonteCarlo
             //int HowManyBuckets = max - min;
             Bucketing bucket = new Bucketing(10, min, max);
 
-            var randomEstimations = GenerateRandomArray(min, max);
+            
             for (int i = 0; i < iterations; i++)
             {
-                int randomPlanCost = 0;
-
-                randomPlanCost += randomEstimations[i];
+                int randomPlanCost = GenerateRandomEstimate();
             
                 bucket.addValueToBucket(randomPlanCost);
 
